@@ -23,12 +23,12 @@ WEB_CLIENT_ID = '978138777882-qadj1kucb9qeb8qnueoi7fk2tl7ldufb.apps.googleuserco
 
 
 ## Contains all API methods.
-@endpoints.api(name='DemoApi',
+@endpoints.api(name='TodoAPI',
                version='v1',
                description='Demo API',
                allowed_client_ids=[WEB_CLIENT_ID,],
                scopes=[endpoints.EMAIL_SCOPE])
-class DemoApi(remote.Service):
+class TodoAPI(remote.Service):
 
     @endpoints.method(TodoMessage, TodoMessage,path='todo_save', http_method='POST',name='todo.save')
     def save_todo(self, request):
@@ -49,4 +49,4 @@ class DemoApi(remote.Service):
     
     
 # The API server instance
-APPLICATION = endpoints.api_server([DemoApi,])
+APPLICATION = endpoints.api_server([TodoAPI,])
