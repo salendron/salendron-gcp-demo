@@ -1,4 +1,4 @@
-application: xamoom-cloud-dev
+application: salendron-gcp-demo
 version: 1
 runtime: python27
 threadsafe: true
@@ -7,7 +7,7 @@ api_version: 1
 handlers:
 # Endpoints handler
 - url: /_ah/spi/.*
-  script: xamoom_api.APPLICATION
+  script: demo_api.APPLICATION
   secure: always
 
 libraries:
