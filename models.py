@@ -16,9 +16,9 @@ from util import get_user
 class Todo(ndb.Model):
     user_email = ndb.StringProperty(required=True)
     text = ndb.TextProperty(required=True)
-    is_done = ndb.StringProperty(required=True)
+    is_done = ndb.BooleanProperty(required=True)
     
-    def to_message(self,user):
+    def to_message(self):
         return TodoMessage(
             id=self.key.id(),
             text=self.text,
@@ -30,14 +30,14 @@ class Todo(ndb.Model):
         entity = None
         
         if hasattr(message, 'id') and message.id != None:
-            entity = ndb.key('Todo',message.id)
+            entity = ndb.Key('Todo',message.id).get()
             entity.text = message.text
             entity.is_done = True if message.is_done == 'true' else False
         else:
             entity = cls(
                 user_email=get_user().email(),
-                text=self.text,
-                is_done='true' if self.is_done else 'false'
+                text=message.text,
+                is_done=True if message.is_done == 'true' else False
             )
             
         entity.put()

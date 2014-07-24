@@ -12,7 +12,7 @@ class TodoMessage(messages.Message):
     is_done = messages.StringField(3,required=True)
     
 class GetTodosRequestMessage(messages.Message):
-    done = messages.IntegerField(1,required=True)
+    done = messages.StringField(1,required=True)
     
 class TodoListResponseMessage(messages.Message):
     items = messages.MessageField(TodoMessage, 1, repeated=True)

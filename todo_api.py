@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
-## @package demo_api
-# @brief This files contains a class DemoApi 
+## @package todo_api
+# @brief This files contains a class TodoApi 
 # @author Bruno Hautzenberger
 
 import logging
@@ -18,15 +18,12 @@ from api_messages import TodoMessage
 
 from util import get_user
 
-#Google OAuth
-WEB_CLIENT_ID = '978138777882-qadj1kucb9qeb8qnueoi7fk2tl7ldufb.apps.googleusercontent.com'
-
 
 ## Contains all API methods.
-@endpoints.api(name='TodoAPI',
+@endpoints.api(name='todoapi',
                version='v1',
-               description='Demo API',
-               allowed_client_ids=[WEB_CLIENT_ID,],
+               description='Todo API',
+               allowed_client_ids=[endpoints.API_EXPLORER_CLIENT_ID],
                scopes=[endpoints.EMAIL_SCOPE])
 class TodoAPI(remote.Service):
 
@@ -42,8 +39,8 @@ class TodoAPI(remote.Service):
     def get_todos(self, request):
         get_user() #check auth
         
-        done = True if request.is_done == 'true' else False
-        todo_items = [todo.to_message() for todo in Todo.get_todos_of_user(todo)]
+        done = True if request.done == 'true' else False
+        todo_items = [todo.to_message() for todo in Todo.get_todos_of_user(done)]
         
         return TodoListResponseMessage(items=todo_items)
     
